@@ -1,0 +1,249 @@
+.tinderCard {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    position: absolute;
+    border-radius: 8px;
+    box-shadow: 0 0 8px 0 #3c444f;
+    transition: box-shadow 0.3s ease;
+
+    &MarkerNope,
+    &MarkerLike {
+        position: absolute;
+        padding: 0.1em;
+        text-transform: uppercase;
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 1.05;
+        border-radius: 4px;
+        border: 4px solid;
+        z-index: 1;
+        pointer-events: none;
+        top: 10%;
+    }
+
+    &MarkerNope {
+        transform: rotate(20deg);
+        right: 10%;
+        color: #c62c1e;
+        border-color: #c62c1e;
+    }
+
+    &MarkerLike {
+        transform: rotate(-20deg);
+        left: 10%;
+        color: #21d07c;
+        border-color: #21d07c;
+    }
+
+    &Content {
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+        cursor: pointer;
+
+        &Wrap {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &More {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 28px;
+            transition: transform 0.2s ease;
+
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+    }
+
+    &Options {
+        display: flex;
+        align-items: center;
+
+        &Wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        &Main {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+        }
+
+        &Name {
+            font-size: 34px;
+            font-weight: 700;
+            letter-spacing: 0.01rem;
+        }
+
+        &Age {
+            font-size: 26px;
+        }
+
+        &Interest {
+            font-size: 15px;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 100px;
+            border: 1px solid #fff;
+            background-color: #505965CC;
+            backdrop-filter: blur(4px);
+        }
+
+        &Info {
+            display: -webkit-box;
+            max-width: 307px;
+            max-height: 118.11px;
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 24px;
+            text-align: left;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            white-space: pre-line;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            overflow: hidden;
+        }
+
+        &Item {
+            transform: translateY(100px);
+            opacity: 0;
+            height: 0;
+
+            transition: transform 0.2s ease, opacity 0.2s ease;
+
+            &Active {
+                transform: translateY(0);
+                opacity: 1;
+                height: auto;
+            }
+        }
+    }
+
+    &Controls {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        position: absolute;
+    }
+
+    &LeftControl,
+    &RightControl {
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        z-index: 5;
+    }
+
+    &LeftControl {
+        left: 0;
+    }
+
+    &RightControl {
+        right: 0;
+    }
+
+    &Gallery {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        &LazyPicture {
+            background-image: url("/loader.svg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100px;
+            width: inherit;
+            height: inherit;
+            background-color: #282828;
+        }
+
+        &Picture {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: inherit;
+            height: inherit;
+            object-position: 50% 0%;
+            object-fit: cover;
+            background-color: transparent;
+            border-radius: 8px;
+        }
+    }
+
+    &Dots {
+        z-index: 100;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 8px;
+    }
+
+    &Dot {
+        display: block;
+        width: 100%;
+        height: 4px;
+        cursor: pointer;
+        border-radius: 100px;
+        background-color: #505965;
+        transition: background-color 0.1s ease;
+
+        border: none;
+        outline: none;
+
+        &Active {
+            background-color: #fff;
+        }
+    }
+
+    &Decision {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 8px;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}

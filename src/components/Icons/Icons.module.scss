@@ -1,0 +1,26 @@
+.icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    transform: translateY(-50%) scale(1);
+    fill: #fff;
+    opacity: 1;
+    transition: opacity .3s ease, transform .3s ease;
+    z-index: 5;
+
+    &:hover {
+        cursor: pointer;
+    }
+    
+    &Right {
+        transform: translateY(-50%) rotate(180deg) scale(1);
+    }
+
+    &Disbled {
+        opacity: 0;
+        user-select: none;
+        cursor: default;
+        transform: scale(0);
+    }
+}
