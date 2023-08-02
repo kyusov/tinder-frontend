@@ -1,0 +1,26 @@
+.sidebar {
+    &Content {
+        min-width: 375px;
+    }
+
+    &Header {
+        padding: .75rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 1rem;
+
+        &Picture {
+            object-fit: cover;
+            object-position: top center;
+            border-radius: 50%;
+        }
+
+        &Name {
+            color: #fff;
+            font-weight: 500;
+        }
+    }
+
+    
+}
