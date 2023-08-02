@@ -109,18 +109,23 @@
             border: 1px solid;
             border-radius: 50%;
             background-color: transparent;
+            transition: color .2s ease, background-color .2s ease, scale .2s ease;
 
-            &:not(&--disableColor):hover {
+            &:not(&DisableColor):active {
+                scale: 1.04;
+            }
+
+            &:not(&DisableColor):hover {
                 cursor: pointer;
 
                 svg {
-                    transform: scale(1.1);
+                    scale: 1.1;
                 }
             }
 
             svg {
                 width: 32px;
-                transition: transform 0.2s ease-in-out;
+                transition: scale 0.2s ease-in-out;
             }
 
             &RewindColor {

@@ -52,9 +52,21 @@ interface CardControlProps {
 
 interface CardDotsProps extends CardControlProps {}
 
-// TODO: При смещении карточки окрашивать кнопки like dislike
 const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 	const x = useMotionValue(0)
+
+	const bgNopeButtonColor = useTransform(
+		x,
+		[0, -275],
+		['linear-gradient(#ffffff00 0%, #fd267a00 100%)', 'linear-gradient(#ffffff00 0%, #fd267a 100%)']
+	)
+
+	const bgLikeButtonColor = useTransform(
+		x,
+		[0, 275],
+		['linear-gradient(#ffffff00 0%, #129e6800 100%)', 'linear-gradient(#ffffff00 0%, #129e68 100%)']
+	)
+
 	const rotate = useTransform(x, [-700, -500, 500, 700], [-60, -45, 45, 60])
 	const opacityNopeValue = useTransform(x, [0, -150, -200], [0, 0.5, 1])
 	const opacityLikeValue = useTransform(x, [0, 150, 200], [0, 0.5, 1])
@@ -181,7 +193,12 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 						</svg>
 					</button>
 
-					<button className={`${tinderCardControlsButton} ${tinderCardControlsButtonDislikeColor}`}>
+					<motion.button
+						className={`${tinderCardControlsButton} ${tinderCardControlsButtonDislikeColor}`}
+						style={{
+							background: bgNopeButtonColor,
+						}}
+					>
 						<svg viewBox="0 0 24 24">
 							<defs>
 								<linearGradient id="gradient--backgroundNope" spreadMethod="pad">
@@ -194,7 +211,7 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 								fill="url(#gradient--backgroundNope)"
 							/>
 						</svg>
-					</button>
+					</motion.button>
 
 					<button className={`${tinderCardControlsButton} ${tinderCardControlsButtonSuperLikeColor}`}>
 						<svg viewBox="0 0 24 24">
@@ -211,7 +228,12 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 						</svg>
 					</button>
 
-					<button className={`${tinderCardControlsButton} ${tinderCardControlsButtonLikeColor}`}>
+					<motion.button
+						className={`${tinderCardControlsButton} ${tinderCardControlsButtonLikeColor}`}
+						style={{
+							background: bgLikeButtonColor,
+						}}
+					>
 						<svg viewBox="0 0 24 24">
 							<defs>
 								<linearGradient id="gradient--backgroundLike" spreadMethod="pad">
@@ -224,7 +246,7 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 								fill="url(#gradient--backgroundLike)"
 							/>
 						</svg>
-					</button>
+					</motion.button>
 
 					<button className={`${tinderCardControlsButton} ${tinderCardControlsButtonBoostColor}`}>
 						<svg viewBox="0 0 24 24">

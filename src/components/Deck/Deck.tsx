@@ -85,9 +85,6 @@ const Deck: FC = () => {
 	const [likedUsers, setLikedUsers] = useState<number[]>([])
 	const [dislikedUsers, setDislikedUsers] = useState<number[]>([])
 
-	console.log('likedUsers', likedUsers)
-	console.log('dislikedUsers', dislikedUsers)
-
 	return (
 		<div className={tinderDeck}>
 			{users.map((user, index) => (
