@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { Card } from '@components'
-import { tinderDeck } from './Deck.module.scss'
+import styleClasses from './Deck.module.scss'
 import { User } from '@types'
 
 const users: User[] = [
@@ -86,7 +86,7 @@ const Deck: FC = () => {
 	const [dislikedUsers, setDislikedUsers] = useState<number[]>([])
 
 	return (
-		<div className={tinderDeck}>
+		<div className={styleClasses.tinderDeck}>
 			{users.map((user, index) => (
 				<Card
 					styles={{ zIndex: users.length - index }}

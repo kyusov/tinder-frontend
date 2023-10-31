@@ -4,35 +4,7 @@ import { motion, useAnimation, useMotionValue, useTransform } from 'framer-motio
 import { User } from '@types'
 
 import { LeftArrowIcon, RigthArrowIcon } from '@components'
-import {
-	tinderCard,
-	tinderCardContent,
-	tinderCardContentMore,
-	tinderCardContentWrap,
-	tinderCardControls,
-	tinderCardControlsButton,
-	tinderCardControlsButtonBoostColor,
-	tinderCardControlsButtonDisableColor,
-	tinderCardControlsButtonDislikeColor,
-	tinderCardControlsButtonLikeColor,
-	tinderCardControlsButtonRewindColor,
-	tinderCardControlsButtonSuperLikeColor,
-	tinderCardDecision,
-	tinderCardDot,
-	tinderCardDotActive,
-	tinderCardDots,
-	tinderCardGallery,
-	tinderCardGalleryLazyPicture,
-	tinderCardGalleryPicture,
-	tinderCardLeftControl,
-	tinderCardMarkerLike,
-	tinderCardMarkerNope,
-	tinderCardOptionsAge,
-	tinderCardOptionsMain,
-	tinderCardOptionsName,
-	tinderCardOptionsResidence,
-	tinderCardRightControl,
-} from './Card.module.scss'
+import styleClasses from './Card.module.scss'
 
 import 'keen-slider/keen-slider.min.css'
 
@@ -111,7 +83,7 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 			onDragTransitionEnd={() => setIsDrag(false)}
 			dragElastic={1}
 			whileDrag={{ cursor: 'grab' }}
-			className={tinderCard}
+			className={styleClasses.tinderCard}
 			style={{ rotate: rotate, x: x, ...styles }}
 			animate={controls}
 			onDragStart={() => setIsDrag(true)}
@@ -138,33 +110,35 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 					<CardDots currentSlide={currentSlide} instanceRef={instanceRef} />
 				</>
 			)}
-			<div ref={sliderRef} className={`${tinderCardGallery} keen-slider`}>
-				<motion.div className={tinderCardMarkerNope} style={{ opacity: opacityNopeValue }}>
+			<div ref={sliderRef} className={`${styleClasses.tinderCardGallery} keen-slider`}>
+				<motion.div className={styleClasses.tinderCardMarkerNope} style={{ opacity: opacityNopeValue }}>
 					Nope
 				</motion.div>
-				<motion.div className={tinderCardMarkerLike} style={{ opacity: opacityLikeValue }}>
+				<motion.div className={styleClasses.tinderCardMarkerLike} style={{ opacity: opacityLikeValue }}>
 					like
 				</motion.div>
 				{user.photos.map((picture, index) => (
-					<div key={picture} className={`${tinderCardGalleryLazyPicture} keen-slider__slide`}>
+					<div key={picture} className={`${styleClasses.tinderCardGalleryLazyPicture} keen-slider__slide`}>
 						<img
 							loading="lazy"
-							className={tinderCardGalleryPicture}
+							className={styleClasses.tinderCardGalleryPicture}
 							src={loadedSlides[index] ? picture : '/b.png'}
 						/>
 					</div>
 				))}
 			</div>
-			<div className={tinderCardContent}>
-				<div className={tinderCardContentWrap}>
+			<div className={styleClasses.tinderCardContent}>
+				<div className={styleClasses.tinderCardContentWrap}>
 					<div>
-						<div className={tinderCardOptionsMain}>
-							<span className={tinderCardOptionsName}>{user.name}</span>
-							<span className={tinderCardOptionsAge}>{user.age}</span>
+						<div className={styleClasses.tinderCardOptionsMain}>
+							<span className={styleClasses.tinderCardOptionsName}>{user.name}</span>
+							<span className={styleClasses.tinderCardOptionsAge}>{user.age}</span>
 						</div>
-						{user.residence && <span className={tinderCardOptionsResidence}>{user.residence}</span>}
+						{user.residence && (
+							<span className={styleClasses.tinderCardOptionsResidence}>{user.residence}</span>
+						)}
 					</div>
-					<div className={tinderCardContentMore}>
+					<div className={styleClasses.tinderCardContentMore}>
 						<svg viewBox="0 0 24 24">
 							<path
 								fill="#fff"
@@ -173,10 +147,12 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 						</svg>
 					</div>
 				</div>
-				<div className={tinderCardDecision}>
+				<div className={styleClasses.tinderCardDecision}>
 					<button
-						className={`${tinderCardControlsButton} ${
-							true ? tinderCardControlsButtonDisableColor : tinderCardControlsButtonRewindColor
+						className={`${styleClasses.tinderCardControlsButton} ${
+							true
+								? styleClasses.tinderCardControlsButtonDisableColor
+								: styleClasses.tinderCardControlsButtonRewindColor
 						}`}
 					>
 						<svg viewBox="0 0 24 24">
@@ -194,7 +170,7 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 					</button>
 
 					<motion.button
-						className={`${tinderCardControlsButton} ${tinderCardControlsButtonDislikeColor}`}
+						className={`${styleClasses.tinderCardControlsButton} ${styleClasses.tinderCardControlsButtonDislikeColor}`}
 						style={{
 							background: bgNopeButtonColor,
 						}}
@@ -213,7 +189,9 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 						</svg>
 					</motion.button>
 
-					<button className={`${tinderCardControlsButton} ${tinderCardControlsButtonSuperLikeColor}`}>
+					<button
+						className={`${styleClasses.tinderCardControlsButton} ${styleClasses.tinderCardControlsButtonSuperLikeColor}`}
+					>
 						<svg viewBox="0 0 24 24">
 							<defs>
 								<linearGradient id="gradient--backgroundSuperLike" spreadMethod="pad">
@@ -229,7 +207,7 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 					</button>
 
 					<motion.button
-						className={`${tinderCardControlsButton} ${tinderCardControlsButtonLikeColor}`}
+						className={`${styleClasses.tinderCardControlsButton} ${styleClasses.tinderCardControlsButtonLikeColor}`}
 						style={{
 							background: bgLikeButtonColor,
 						}}
@@ -248,7 +226,9 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 						</svg>
 					</motion.button>
 
-					<button className={`${tinderCardControlsButton} ${tinderCardControlsButtonBoostColor}`}>
+					<button
+						className={`${styleClasses.tinderCardControlsButton} ${styleClasses.tinderCardControlsButtonBoostColor}`}
+					>
 						<svg viewBox="0 0 24 24">
 							<defs>
 								<linearGradient id="gradient--backgroundBoost" spreadMethod="pad">
@@ -270,9 +250,9 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 
 const CardArrowControls: FC<CardControlProps> = ({ currentSlide, instanceRef, isDrag }) => {
 	return (
-		<div className={`${tinderCardControls}`}>
+		<div className={`${styleClasses.tinderCardControls}`}>
 			<div
-				className={tinderCardLeftControl}
+				className={styleClasses.tinderCardLeftControl}
 				onClick={() => {
 					!isDrag && instanceRef.current?.prev()
 				}}
@@ -280,7 +260,7 @@ const CardArrowControls: FC<CardControlProps> = ({ currentSlide, instanceRef, is
 				<LeftArrowIcon style={{ left: 0, margin: '0 10px' }} disabled={currentSlide === 0} />
 			</div>
 			<div
-				className={tinderCardRightControl}
+				className={styleClasses.tinderCardRightControl}
 				onClick={() => {
 					!isDrag && instanceRef.current?.next()
 				}}
@@ -301,7 +281,7 @@ const CardArrowControls: FC<CardControlProps> = ({ currentSlide, instanceRef, is
 
 const CardDots: FC<CardDotsProps> = ({ currentSlide, instanceRef }) => {
 	return (
-		<div className={tinderCardDots}>
+		<div className={styleClasses.tinderCardDots}>
 			{[...Array(instanceRef.current?.track.details.slides.length).keys()].map((idx) => {
 				return (
 					<button
@@ -309,7 +289,9 @@ const CardDots: FC<CardDotsProps> = ({ currentSlide, instanceRef }) => {
 						onClick={() => {
 							instanceRef.current?.moveToIdx(idx)
 						}}
-						className={`${tinderCardDot} ${currentSlide === idx ? tinderCardDotActive : ''}`}
+						className={`${styleClasses.tinderCardDot} ${
+							currentSlide === idx ? styleClasses.tinderCardDotActive : ''
+						}`}
 					></button>
 				)
 			})}

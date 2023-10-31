@@ -4,13 +4,13 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  css: {
-	modules: {
-		localsConvention: 'camelCaseOnly'
-	}
-  },
-  resolve: {
+	plugins: [react()],
+	css: {
+		modules: {
+			localsConvention: 'camelCaseOnly',
+		},
+	},
+	resolve: {
 		alias: {
 			'@styles': path.resolve(__dirname, './src/styles'),
 			'@types': path.resolve(__dirname, './src/types'),
