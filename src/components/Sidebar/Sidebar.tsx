@@ -65,7 +65,7 @@ const SidebarHeader: FC = () => (
 
 const SidebarNavigation: FC = () => (
 	<nav className={styleClasses.sidebarDeckNav}>
-		<div className={styleClasses.sidebarDeckNavItem}>Пары</div>
+		<div className={`${styleClasses.sidebarDeckNavItem} ${styleClasses.sidebarDeckNavItemActive}`}>Пары</div>
 		<div className={styleClasses.sidebarDeckNavItem}>Чаты</div>
 	</nav>
 )

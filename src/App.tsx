@@ -1,11 +1,14 @@
 import { Deck, Sidebar } from "@components"
+import LoginPage from "./pages/LoginPage"
 
 const App = () => {
   return (
-    <div className="container">
-      <Deck />
-      <Sidebar />
-    </div>
+    <LoginPage />
+
+    // <div className="container">
+    //   <Deck />
+    //   <Sidebar />
+    // </div>
   )
 }
 
