@@ -4,4 +4,18 @@
     height: 667px;
     justify-self: center;
     align-self: center;
+
+    &Empty {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+        video {
+            width: 80px;
+            height: 80px;
+        }
+    }
 }
