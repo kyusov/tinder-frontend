@@ -20,11 +20,14 @@ interface CardControlProps {
 	instanceRef: MutableRefObject<KeenSliderInstance<{}, {}, KeenSliderHooks> | null>
 	isDrag?: boolean
 	className?: string
+	visible?: boolean
 }
 
 interface CardDotsProps extends CardControlProps {}
 
 const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
+	const [fullInfoIsVisible, setFullInfoIsVisible] = useState(false)
+
 	const x = useMotionValue(0)
 
 	const bgNopeButtonColor = useTransform(
@@ -68,6 +71,10 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 	const handleLike = (userId: number) => onLike(userId)
 	const handleDislike = (userId: number) => onDislike(userId)
 
+	const showCardDiscription = () => {
+		setFullInfoIsVisible(true)
+	}
+
 	useEffect(() => {
 		const new_loaded = [...loadedSlides]
 		new_loaded[currentSlide] = true
@@ -76,7 +83,7 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 
 	return (
 		<motion.div
-			drag
+			drag={!fullInfoIsVisible}
 			dragConstraints={{ top: -100, left: -1000, right: 1000, bottom: -100 }}
 			dragTransition={{ bounceStiffness: 185, bounceDamping: 12.5 }}
 			dragSnapToOrigin
@@ -84,7 +91,7 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 			dragElastic={1}
 			whileDrag={{ cursor: 'grab' }}
 			className={styleClasses.tinderCard}
-			style={{ rotate: rotate, x: x, ...styles }}
+			style={{ rotate: rotate, x: x, overflowY: `${fullInfoIsVisible ? 'scroll' : 'hidden'}`, ...styles }}
 			animate={controls}
 			onDragStart={() => setIsDrag(true)}
 			onDragEnd={(_, info) => {
@@ -106,7 +113,12 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 		>
 			{loaded && instanceRef.current && (
 				<>
-					<CardArrowControls isDrag={isDrag} currentSlide={currentSlide} instanceRef={instanceRef} />
+					<CardArrowControls
+						isDrag={isDrag}
+						currentSlide={currentSlide}
+						instanceRef={instanceRef}
+						visible={!fullInfoIsVisible}
+					/>
 					<CardDots currentSlide={currentSlide} instanceRef={instanceRef} />
 				</>
 			)}
@@ -121,14 +133,16 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 					<div key={picture} className={`${styleClasses.tinderCardGalleryLazyPicture} keen-slider__slide`}>
 						<img
 							loading="lazy"
-							className={styleClasses.tinderCardGalleryPicture}
+							className={`${styleClasses.tinderCardGalleryPicture} ${
+								fullInfoIsVisible ? styleClasses.tinderCardGalleryPictureHalf : ''
+							}`}
 							src={loadedSlides[index] ? picture : '/b.png'}
 						/>
 					</div>
 				))}
 			</div>
 			<div className={styleClasses.tinderCardContent}>
-				<div className={styleClasses.tinderCardContentWrap}>
+				<div className={styleClasses.tinderCardContentWrap} onClick={showCardDiscription}>
 					<div>
 						<div className={styleClasses.tinderCardOptionsMain}>
 							<span className={styleClasses.tinderCardOptionsName}>{user.name}</span>
@@ -244,11 +258,42 @@ const Card: FC<CardProps> = ({ user, styles = {}, onLike, onDislike }) => {
 					</button>
 				</div>
 			</div>
+			<div
+				className={`${styleClasses.tinderCardDescription} ${
+					fullInfoIsVisible ? styleClasses.tinderCardDescriptionShow : ''
+				}`}
+			>
+				<div className={styleClasses.tinderCardDescriptionContent}>
+					Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat cum laboriosam, vitae numquam
+					minima nesciunt ipsam at praesentium dicta, quisquam debitis, asperiores esse possimus veritatis ab
+					nostrum itaque delectus perferendis! Debitis consequuntur fugit illum ipsum quod modi similique
+					natus sequi vero. Facere aperiam reiciendis deserunt laboriosam quae placeat quas atque voluptate a
+					ea minima, officiis deleniti recusandae similique in harum! Quae reprehenderit perspiciatis rem
+					accusantium doloremque magni laudantium ullam vero illum similique iste maiores nostrum, in eum
+					ducimus pariatur, sint ut odit asperiores velit? Earum odio minima itaque eius quo. Minima eaque
+					explicabo sequi impedit ipsa illo labore eum aliquam temporibus blanditiis deserunt officiis ducimus
+					veniam a optio harum, distinctio incidunt? Nisi laborum sunt tenetur modi a. Atque, dicta? Corporis!
+					Ratione recusandae odio voluptate suscipit minima explicabo nesciunt eum harum odit quas officiis,
+					fugiat, consectetur atque quibusdam magnam ut tempore dignissimos mollitia distinctio eos laboriosam
+					perspiciatis, unde quidem? Cumque, blanditiis? Nostrum maxime repellendus vero laudantium laborum
+					velit non maiores, a molestiae officia nihil possimus voluptas tempora in at voluptatem aliquam
+					itaque harum? Possimus voluptatibus officia optio nostrum architecto deserunt eius! Ea omnis in sed
+					accusantium exercitationem dicta tenetur est impedit vero laudantium ad esse dolorem et consectetur
+					blanditiis, nihil non doloremque voluptates numquam dolore modi, voluptate cupiditate. Obcaecati,
+					vitae voluptas? Quasi voluptas, distinctio iste consectetur eveniet mollitia at reiciendis! Iusto
+					ea, sint minus velit eligendi magnam nesciunt maiores. Ipsam dicta earum exercitationem qui nobis
+					praesentium aliquid voluptates totam quidem ab. Harum quas officia deserunt rem laborum facere
+					quisquam praesentium aut dolorum quod. Saepe repellat debitis dicta commodi, fugiat reiciendis magni
+					magnam cupiditate. Obcaecati ad quasi explicabo enim accusamus dicta harum. Tenetur aliquid
+					reiciendis, quos inventore nemo a, quia earum facilis autem illo minus totam voluptate officiis eius
+					odit veniam eveniet nobis maiores. Itaque rem ea nam tempore sunt libero nemo.
+				</div>
+			</div>
 		</motion.div>
 	)
 }
 
-const CardArrowControls: FC<CardControlProps> = ({ currentSlide, instanceRef, isDrag }) => {
+const CardArrowControls: FC<CardControlProps> = ({ currentSlide, instanceRef, isDrag, visible = true }) => {
 	return (
 		<div className={`${styleClasses.tinderCardControls}`}>
 			<div
@@ -257,7 +302,7 @@ const CardArrowControls: FC<CardControlProps> = ({ currentSlide, instanceRef, is
 					!isDrag && instanceRef.current?.prev()
 				}}
 			>
-				<LeftArrowIcon style={{ left: 0, margin: '0 10px' }} disabled={currentSlide === 0} />
+				{visible ? <LeftArrowIcon style={{ left: 0, margin: '0 10px' }} disabled={currentSlide === 0} /> : null}
 			</div>
 			<div
 				className={styleClasses.tinderCardRightControl}
@@ -265,15 +310,17 @@ const CardArrowControls: FC<CardControlProps> = ({ currentSlide, instanceRef, is
 					!isDrag && instanceRef.current?.next()
 				}}
 			>
-				<RigthArrowIcon
-					style={{ right: 0, margin: '0 10px' }}
-					disabled={
-						currentSlide ===
-						(instanceRef.current?.track.details.slides.length
-							? instanceRef.current?.track.details.slides.length - 1
-							: 0)
-					}
-				/>
+				{visible ? (
+					<RigthArrowIcon
+						style={{ right: 0, margin: '0 10px' }}
+						disabled={
+							currentSlide ===
+							(instanceRef.current?.track.details.slides.length
+								? instanceRef.current?.track.details.slides.length - 1
+								: 0)
+						}
+					/>
+				) : null}
 			</div>
 		</div>
 	)
