@@ -11,21 +11,27 @@
     overflow: hidden;
 
     &Description {
-        position: absolute;
+        position: relative;
         z-index: 100;
-        transform: translateY(100%);
-        transition: transform .5s ease .1s;
         width: 100%;
-        height: 0;
+
 
         &Content {
             background-color: #fff;
-            padding: .5rem 1rem;
+            padding: 2rem 1rem 1rem 1rem;
         }
 
-        &Show {
-            transform: translateY(0);
-            height: 50%;
+        &ArrowBack {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 100px;
+            top: -24px;
+            right: 24px;
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(204.504deg, rgb(253, 38, 122), rgb(255, 96, 54));
         }
     }
 
@@ -235,7 +241,7 @@
             object-fit: cover;
             background-color: transparent;
             border-radius: 8px;
-            transition: height .5s ease .1s;
+            transition: height .5s ease .1s, object-position .2s ease .2s;
 
             &Half {
                 border-radius: 0;
